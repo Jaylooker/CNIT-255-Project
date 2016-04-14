@@ -10,6 +10,6 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	//spawn enemies either in waves or constantly
 	}
 }

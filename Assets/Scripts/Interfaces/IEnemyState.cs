@@ -7,5 +7,6 @@ public interface IEnemyState {
 
     void Attack();
 
+    void UpdateState();
 }
 
