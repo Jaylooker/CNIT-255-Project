@@ -5,14 +5,15 @@ public class Player : Person {
     //isKinematic so need tranform.Position to move
     //float health
     //Position position
-    //navmeshagent agent
+    //navagent2d agent
+
     private Vector3 targetpos;
     private const int LeftMouseButton = 0;
+    private float velocity = .2f; //units per sec
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>(); //reference to component
-        GetComponent<NavMeshAgent>().enabled = true;
+        agent = gameObject.GetComponent<NavAgent2D>(); //closest to thing to "new" class as MonoBehavior is inheritted
     }
     
 	// Use this for initialization
@@ -20,6 +21,7 @@ public class Player : Person {
         health = 100f;
         pos = transform.position; //use for enemy detection
         targetpos = transform.position; //use form movement
+        agent.setvelocity(velocity); //set speed
 	}
 	
 	// Update is called once per frame

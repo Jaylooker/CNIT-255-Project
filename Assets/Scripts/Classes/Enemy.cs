@@ -5,13 +5,12 @@ public class Enemy : Person {
     //isKinematic so need tranform.Position to move
     //float health 
     //Position position
-    //navmeshagent agent
+    //navagent2d agent
+
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>(); //reference to component
-        GetComponent<NavMeshAgent>().enabled = true;
-        
+        agent = gameObject.AddComponent<NavAgent2D>();
     }
     // Use this for initialization
 	void Start () {

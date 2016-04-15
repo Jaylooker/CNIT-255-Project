@@ -12,7 +12,7 @@ public class CameraScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         transform.LookAt(focus); //look at play each frame (follow)
 	}
 }
