@@ -6,11 +6,13 @@ public class Enemy : Person {
     //float health 
     //Position position
     //navagent2d agent
+    //rigidbody2d rb
 
 
     void Awake()
     {
         agent = gameObject.AddComponent<NavAgent2D>(); //creates accessor to NavAgent2D script
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
     // Use this for initialization
 	void Start () {

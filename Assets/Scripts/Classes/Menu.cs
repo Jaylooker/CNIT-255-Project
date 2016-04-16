@@ -3,17 +3,17 @@ using UnityEngine;
 using System.Collections;
 
 public class Menu : MonoBehaviour {
-    string GameStartName = "DemoScene";
-    private Scene DemoScene;
+    
+    private int DemoScene;
 
     void Start()
     {
-        DemoScene = SceneManager.GetSceneByName(GameStartName);
+        DemoScene = 1;
     }
     
     public void Play()
     {
-        SceneManager.LoadScene(DemoScene.name);
+        SceneManager.LoadScene(DemoScene);
     }
 	public void Quit()
     {
