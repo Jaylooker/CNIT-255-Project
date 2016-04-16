@@ -10,7 +10,7 @@ public class Enemy : Person {
 
     void Awake()
     {
-        agent = gameObject.AddComponent<NavAgent2D>();
+        agent = gameObject.AddComponent<NavAgent2D>(); //creates accessor to NavAgent2D script
     }
     // Use this for initialization
 	void Start () {

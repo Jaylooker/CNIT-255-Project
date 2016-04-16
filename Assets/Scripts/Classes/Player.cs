@@ -13,7 +13,7 @@ public class Player : Person {
 
     void Awake()
     {
-        agent = gameObject.GetComponent<NavAgent2D>(); //closest to thing to "new" class as MonoBehavior is inheritted
+        agent = gameObject.AddComponent<NavAgent2D>();  //creates accessor to NavAgent2D script
     }
     
 	// Use this for initialization
@@ -27,9 +27,10 @@ public class Player : Person {
 	// Update is called once per frame
 	void Update () {
         pos = new Vector3(transform.position.x, transform.position.y); //get current position
-        if (Input.GetMouseButton(LeftMouseButton) == true)
+        if (Input.GetMouseButton(LeftMouseButton) == true && Input.mousePosition.x <= Screen.width && Input.mousePosition.y <= Screen.height) //if left mouse on screen
         {
             SetTargetPosition();
+            
         }
         MovePlayer();
     }
