@@ -11,7 +11,7 @@ public class Player : Person {
     private Vector3 targetpos;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
-    private float velocity = 1f; //units per frame
+    private float velocity = 2f; //units per frame
 
     void Awake()
     {
@@ -40,16 +40,10 @@ public class Player : Person {
 
     void SetTargetPosition()
     {
-        /*Plane plane = new Plane(Vector3.zero, transform.position); //creates a plane at player position
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Finds a ray pointing from the camera at where the mouse has clicked
-        float point;
-        if(plane.Raycast(ray, out point) == true) //if mouse click intersects the plane set the target position to that point of intersection
-        {
-            targetpos = ray.GetPoint(point);
-           
-        }*/
-       targetpos = Input.mousePosition;
-       Debug.Log(targetpos.ToString());
+        Plane plane = new Plane(Vector3.zero, transform.position); //creates a plane at player position
+        Ray2D ray = new Ray2D(Vector2.zero, Camera.main.ScreenPointToRay(Input.mousePosition).direction); //Finds a ray pointing from the camera at where the mouse has clicked
+        targetpos = new Vector3(ray.direction.x, ray.direction.y);
+        //Debug.Log(targetpos.ToString());
     }
 
     void MovePlayer()
