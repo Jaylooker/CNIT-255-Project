@@ -40,9 +40,18 @@ public class Player : Person {
 
     void SetTargetPosition()
     {
-        Plane plane = new Plane(Vector3.zero, transform.position); //creates a plane at player position
-        Ray2D ray = new Ray2D(Vector2.zero, Camera.main.ScreenPointToRay(Input.mousePosition).direction); //Finds a ray pointing from the camera at where the mouse has clicked
-        targetpos = new Vector3(ray.direction.x, ray.direction.y);
+        float cameraz = Camera.main.transform.position.z;
+        /*float point = 0f;
+        Plane plane = new Plane(Vector3.up, transform.position); //creates a plane at player position
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//Finds a ray pointing from the camera at where the mouse has clicked
+        if (plane.Raycast(ray, out point) == true)
+        {
+            targetpos = ray.GetPoint(point);
+        }*/
+        targetpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraz));
+        //targetpos.z = transform.position.z;
+        
+        //Debug.Log(Input.mousePosition);
         //Debug.Log(targetpos.ToString());
     }
 
