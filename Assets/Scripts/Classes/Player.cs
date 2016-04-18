@@ -31,14 +31,15 @@ public class Player : Person {
 	// Update is called once per frame
 	void Update () {
         pos = new Vector3(transform.position.x, transform.position.y); //get current position
-        if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
+        /*if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
         {
             SetTargetPosition();
         }
         MovePlayer();
+        */
     }
 
-    void SetTargetPosition()
+    void SetTargetPosition() //needs work
     {
         float cameraz = Camera.main.transform.position.z;
         /*float point = 0f;
@@ -48,8 +49,10 @@ public class Player : Person {
         {
             targetpos = ray.GetPoint(point);
         }*/
-        targetpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraz));
-        //targetpos.z = transform.position.z;
+        //Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+        //Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+        targetpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetpos.z = transform.position.z;
         
         //Debug.Log(Input.mousePosition);
         //Debug.Log(targetpos.ToString());
@@ -60,6 +63,11 @@ public class Player : Person {
         agent.SetDestination(targetpos);
 
         Debug.DrawLine(transform.position, targetpos, Color.red); //see if it works
+    }
+
+    public float getvelocity()
+    {
+        return velocity;
     }
 
 
