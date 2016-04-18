@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface IEnemyState {
 
-    /*IEnumerator*/ void Patrol();
+    void Patrol();
 
     void Attack();
 

@@ -12,6 +12,7 @@ public class Player : Person {
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
+    private float WASDspeed = 3f;
 
     void Awake()
     {
@@ -37,6 +38,26 @@ public class Player : Person {
         }
         MovePlayer();
         */
+        if (Input.GetKey(KeyCode.W) == true) //WASD if needed
+        {
+            targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed); 
+            agent.SetDestination(targetpos);
+        }
+        if (Input.GetKey(KeyCode.S) == true)
+        {
+            targetpos = new Vector3(transform.position.x, transform.position.y - WASDspeed);
+            agent.SetDestination(targetpos);
+        }
+        if (Input.GetKey(KeyCode.A) == true)
+        {
+            targetpos = new Vector3(transform.position.x - WASDspeed, transform.position.y);
+            agent.SetDestination(targetpos);
+        }
+        if (Input.GetKey(KeyCode.D) == true)
+        {
+            targetpos = new Vector3(transform.position.x + WASDspeed, transform.position.y);
+            agent.SetDestination(targetpos);
+        }
     }
 
     void SetTargetPosition() //needs work
