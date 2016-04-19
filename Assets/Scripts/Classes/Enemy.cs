@@ -10,19 +10,24 @@ public class Enemy : Person, IEnemyState {
     private GameObject[] path;
     private GameObject player;
     private Vector3 targetpos;
+    private SpriteRenderer displaysprite;
+    private Sprite deadsprite;
     private float velocity;
     private float sightdistance;
     private int i;
+    private bool isDead;
 
     void Awake()
     {
         agent = gameObject.AddComponent<NavAgent2D>(); //creates accessor to NavAgent2D script
         rb = gameObject.GetComponent<Rigidbody2D>();
+        displaysprite = gameObject.GetComponent<SpriteRenderer>();
+        deadsprite.name = "DeadSprite"; //get sprite named deadsprite
         velocity = 5f;
-        sightdistance = 6f;
+        sightdistance = 3f;
         targetpos = new Vector3();
         i = 0;
-        
+        isDead = false; 
     }
     // Use this for initialization
 	void Start () {
@@ -56,15 +61,24 @@ public class Enemy : Person, IEnemyState {
         //agent.SetDestination(player.transform.position); //follow player
         Debug.Log("Attack!");
     }
+    public void Dead()
+    {
+        displaysprite.sprite = deadsprite; //display dead sprite
+    }
     public void UpdateState()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) <= sightdistance)
+        if (Vector3.Distance(transform.position, player.transform.position) >= sightdistance && isDead == false)
+        {
+            Patrol();
+        }
+        else if (isDead == false)
         {
             Attack();
         }
         else
         {
-            Patrol();
+            Dead();
         }
+        
     }
 }

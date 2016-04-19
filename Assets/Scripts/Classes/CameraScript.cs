@@ -17,7 +17,7 @@ public class CameraScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         transform.position = Vector3.MoveTowards(transform.position, playerpos, playervelocity); //look at play each frame (follow)
         // debugging 
         //playerpos = Vector3.MoveTowards(playerpos, debugvector3, playervelocity);
