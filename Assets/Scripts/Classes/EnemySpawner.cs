@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour {
         //spawn enemies either in waves or constantly
             enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length == 0) //set to 1 to debug
+            //if (enemies.Length == 1) //Debug
             {
                 enemysalldead = true;
             }
