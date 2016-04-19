@@ -65,9 +65,11 @@ public class Enemy : Person, IEnemyState {
         //agent.SetDestination(player.transform.position); //follow player
         Debug.Log("Attack!");
     }
-    public void Dead()
+    public IEnumerator Dead()
     {
         displaysprite.sprite = deadsprite; //display dead sprite
+        yield return new WaitForSeconds(5);
+        Destroy(this.gameObject);
     }
     public void UpdateState()
     {
@@ -81,7 +83,7 @@ public class Enemy : Person, IEnemyState {
         }
         else
         {
-            Dead();
+            StartCoroutine(Dead());
         }
         
     }

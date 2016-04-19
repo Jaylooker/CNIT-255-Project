@@ -7,7 +7,7 @@ public interface IEnemyState {
 
     void Attack();
 
-    void Dead();
+    IEnumerator Dead();
 
     void UpdateState();
 }

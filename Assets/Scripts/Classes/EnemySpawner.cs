@@ -9,15 +9,13 @@ public class EnemySpawner : MonoBehaviour {
     private Vector3 spawnplace;
     private int wave1;
     private int waves;
-    private int i;
     private bool enemysalldead;
 
 	// Use this for initialization
 	void Start () {
         enemy = GameObject.FindGameObjectWithTag("Enemy");
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+  
         spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-        i = 0;
         wave1 = 5; //use level index for later levels
         waves = 3;
         enemysalldead = false;
@@ -26,7 +24,8 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //spawn enemies either in waves or constantly
-            if (enemies.Length == 0)
+            enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length == 0) //set to 1 to debug
             {
                 enemysalldead = true;
             }
@@ -36,6 +35,10 @@ public class EnemySpawner : MonoBehaviour {
             {
                 Wave(wave1); //spawn another wave
                 enemysalldead = false; //enemies are alive
+            }
+            else
+            {
+                break;
             }
            
         }
