@@ -22,7 +22,7 @@ public class Enemy : Person, IEnemyState {
         agent = gameObject.AddComponent<NavAgent2D>(); //creates accessor to NavAgent2D script
         rb = gameObject.GetComponent<Rigidbody2D>();
         displaysprite = gameObject.GetComponent<SpriteRenderer>();
-        deadsprite.name = "DeadSprite"; //get sprite named deadsprite
+        
         velocity = 5f;
         sightdistance = 3f;
         targetpos = new Vector3();
@@ -32,7 +32,7 @@ public class Enemy : Person, IEnemyState {
     // Use this for initialization
 	void Start () {
         health = 10f;
-
+        //deadsprite.name = "DeadSprite"; //get sprite named deadsprite
         player = GameObject.FindGameObjectWithTag("Player");
         path = GameObject.FindGameObjectsWithTag("Waypoint"); //collect waypoint of path
     }
@@ -43,6 +43,10 @@ public class Enemy : Person, IEnemyState {
         UpdateState();
       }
 
+    public bool getisDead()
+    {
+        return isDead;
+    }
 
     //functions from IEnemyState interface 
     public void Patrol() 

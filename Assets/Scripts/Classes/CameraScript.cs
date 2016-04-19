@@ -11,14 +11,14 @@ public class CameraScript : MonoBehaviour {
      
 	// Use this for initialization
 	void Start () {
-        player = GetComponent<Player>().gameObject; //get gameobject of player
-        playervelocity = player.GetComponent<Player>().getvelocity(); //get veloctiy of player
-        playerpos = player.transform.position; //get position of player
+        //player = GameObject.FindGameObjectWithTag("Player"); //get gameobject of player
+        //playervelocity = player.GetComponent<Player>().getvelocity(); //get veloctiy of player
+        //playerpos = player.transform.position; //get position of player
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        transform.position = Vector3.MoveTowards(transform.position, playerpos, playervelocity); //look at play each frame (follow)
+        //transform.position = Vector3.MoveTowards(transform.position, playerpos, playervelocity); //look at play each frame (follow)
         // debugging 
         //playerpos = Vector3.MoveTowards(playerpos, debugvector3, playervelocity);
 	}

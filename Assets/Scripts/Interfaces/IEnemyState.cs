@@ -7,6 +7,8 @@ public interface IEnemyState {
 
     void Attack();
 
+    void Dead();
+
     void UpdateState();
 }
 
