@@ -23,8 +23,8 @@ public class Enemy : Person, IEnemyState {
         rb = gameObject.GetComponent<Rigidbody2D>();
         displaysprite = gameObject.GetComponent<SpriteRenderer>();
         
-        velocity = 5f;
-        sightdistance = 3f;
+        velocity = 3f;
+        sightdistance = 4f;
         targetpos = new Vector3();
         i = 0;
         isDead = false; 
@@ -62,6 +62,7 @@ public class Enemy : Person, IEnemyState {
     }
     public void Attack()
     {
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * velocity);
         //agent.SetDestination(player.transform.position); //follow player
         Debug.Log("Attack!");
     }

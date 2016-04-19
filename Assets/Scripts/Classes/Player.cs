@@ -12,7 +12,7 @@ public class Player : Person {
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
-    private float WASDspeed = 3f;
+    private float WASDspeed = 5f;
 
     void Awake()
     {

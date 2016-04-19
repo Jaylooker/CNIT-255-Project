@@ -32,6 +32,11 @@ public class NavAgent2D : MonoBehaviour
 
         //can add avoidance if needed
     }
-    
 
+    /*public void MoveTo(Vector3 thisdestination)
+    {
+        transform.position = Vector3
+    }
+    
+    */
 }
