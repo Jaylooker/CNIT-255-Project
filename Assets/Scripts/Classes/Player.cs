@@ -7,8 +7,11 @@ public class Player : Person {
     //Position position
     //navagent2d agent
     //rigidbody2d rb
+    //audioclip audio1
 
+    private Menu menu;
     private Vector3 targetpos;
+    private GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
@@ -17,6 +20,7 @@ public class Player : Person {
     void Awake()
     {
         agent = gameObject.AddComponent<NavAgent2D>();  //creates accessor to NavAgent2D script
+        menu = gameObject.AddComponent<Menu>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         agent.setvelocity(velocity); //set speed
     }
@@ -24,9 +28,16 @@ public class Player : Person {
 	// Use this for initialization
 	void Start () {
         health = 100f;
+        UpCollider = transform.FindChild("UpCollider").gameObject;
+        DownCollider = transform.FindChild("DownCollider").gameObject;
+        LeftCollider = transform.FindChild("LeftCollider").gameObject;
+        RightCollider = transform.FindChild("RightCollider").gameObject; //colliders
         pos = transform.position; //use for enemy detection
         targetpos = transform.position; //use form movement
-        
+        /*UpCollider.SetActive(false);
+        LeftCollider.SetActive(false);
+        RightCollider.SetActive(false); */ //colliders
+        //DownCollider is active first as we start with down sprite
 	}
 	
 	// Update is called once per frame
@@ -38,25 +49,62 @@ public class Player : Person {
         }
         MovePlayer();
         */
+        
+        if(health <= 0) //if no health return to menu scene
+        {
+            menu.SendMessage("ReturnToMenu");   
+            
+        }
+
         if (Input.GetKey(KeyCode.W) == true) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed); 
             agent.SetDestination(targetpos);
+            UpCollider.SetActive(true); //change collider
+            DownCollider.SetActive(false);
+            LeftCollider.SetActive(false);
+            RightCollider.SetActive(false);
         }
         if (Input.GetKey(KeyCode.S) == true)
         {
             targetpos = new Vector3(transform.position.x, transform.position.y - WASDspeed);
             agent.SetDestination(targetpos);
+            UpCollider.SetActive(false); //change collider
+            DownCollider.SetActive(true);
+            LeftCollider.SetActive(false);
+            RightCollider.SetActive(false); 
         }
         if (Input.GetKey(KeyCode.A) == true)
         {
             targetpos = new Vector3(transform.position.x - WASDspeed, transform.position.y);
             agent.SetDestination(targetpos);
+            UpCollider.SetActive(false); //change collider
+            DownCollider.SetActive(false);
+            LeftCollider.SetActive(true);
+            RightCollider.SetActive(false); 
         }
         if (Input.GetKey(KeyCode.D) == true)
         {
             targetpos = new Vector3(transform.position.x + WASDspeed, transform.position.y);
             agent.SetDestination(targetpos);
+            UpCollider.SetActive(false); //change collider
+            DownCollider.SetActive(false);
+            LeftCollider.SetActive(false);
+            RightCollider.SetActive(true); 
+        }
+
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        switch (col.tag) 
+        {
+            case "Enemy": health -= col.GetComponent<Enemy>().getDamage(); //subract enemy damage 
+                break;
+            case "Wall": transform.position = transform.position; //stop player from moving
+                break;
+            default: //do nothing 
+                break;
         }
     }
 

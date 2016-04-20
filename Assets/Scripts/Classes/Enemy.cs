@@ -8,6 +8,8 @@ public class Enemy : Person, IEnemyState {
     //Position position
     //navagent2d agent
     //rigidbody2d rb
+    //audioclip audio1
+
     private List<GameObject> pathways = new List<GameObject>();
     private /*List<GameObject>*/ GameObject[] path; 
     private GameObject player;
@@ -17,6 +19,7 @@ public class Enemy : Person, IEnemyState {
     private float velocity;
     private float sightdistance;
     private int i;
+    private float damage;
     private bool isDead;
     private double randomvar;
 
@@ -30,6 +33,7 @@ public class Enemy : Person, IEnemyState {
         sightdistance = 4f;
         targetpos = new Vector3();
         i = 0;
+        damage = 10;
     }
     // Use this for initialization
 	void Start () {
@@ -67,7 +71,13 @@ public class Enemy : Person, IEnemyState {
 
     public bool getisDead()
     {
-        return isDead;    }
+        return isDead;
+    }
+
+    public float getDamage()
+    {
+        return damage;
+    }
 
     //functions from IEnemyState interface 
     public void Patrol() 
@@ -85,7 +95,7 @@ public class Enemy : Person, IEnemyState {
     {
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * velocity);
         //agent.SetDestination(player.transform.position); //follow player
-        Debug.Log("Attack!");
+        //Debug.Log("Attack!");
     }
     public IEnumerator Dead()
     {

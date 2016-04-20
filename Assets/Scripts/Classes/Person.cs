@@ -7,5 +7,6 @@ public class Person : MonoBehaviour {
     protected Vector3 pos = new Vector3();
     protected NavAgent2D agent;
     protected Rigidbody2D rb;
+    protected AudioClip audio1;
 
 }
