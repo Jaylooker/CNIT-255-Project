@@ -12,7 +12,6 @@ public class Player : Person {
     private Menu menu;
     private Vector3 targetpos;
     private GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
-    private SpriteRenderer BackgroundSprite;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
@@ -33,7 +32,6 @@ public class Player : Person {
         DownCollider = transform.FindChild("DownCollider").gameObject;
         LeftCollider = transform.FindChild("LeftCollider").gameObject;
         RightCollider = transform.FindChild("RightCollider").gameObject; //colliders
-        BackgroundSprite = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>();
         pos = transform.position; //use for enemy detection
         targetpos = transform.position; //use form movement
         /*UpCollider.SetActive(false);
@@ -62,10 +60,6 @@ public class Player : Person {
         if (Input.GetKey(KeyCode.W) == true) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
-            /*if (targetpos.y > -BackgroundSprite.bounds.extents.y && targetpos.y < BackgroundSprite.bounds.extents.y) //if within the border of the background change y
-            {
-                targetpos = new Vector3(transform.position.x, transform.position.y);
-            }       */
             agent.SetDestination(targetpos);
             UpCollider.SetActive(true); //change collider
             DownCollider.SetActive(false);
@@ -117,7 +111,7 @@ public class Player : Person {
 
     void SetTargetPosition() //needs work
     {
-        float cameraz = Camera.main.transform.position.z;
+        //float cameraz = Camera.main.transform.position.z;
         /*float point = 0f;
         Plane plane = new Plane(Vector3.up, transform.position); //creates a plane at player position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//Finds a ray pointing from the camera at where the mouse has clicked
@@ -127,8 +121,8 @@ public class Player : Person {
         }*/
         //Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         //Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        targetpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        targetpos.z = transform.position.z;
+        //targetpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //targetpos.z = transform.position.z;
         
         //Debug.Log(Input.mousePosition);
         //Debug.Log(targetpos.ToString());
