@@ -19,7 +19,7 @@ public class CameraScript : MonoBehaviour {
 	// LateUpdate is called once at the end of each frame
 	void LateUpdate () { //LateUpdate() has it follow so we can prevent player from seeing beyond world, Update() has it stay with it
         playerpos = player.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerpos.x, playerpos.y, transform.position.z), Time.deltaTime* playervelocity); 
+        //transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerpos.x, playerpos.y, transform.position.z), Time.deltaTime* playervelocity); 
         //move towards player while maintaining z position
 	}
 }

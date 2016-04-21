@@ -12,6 +12,7 @@ public class Player : Person {
     private Menu menu;
     private Vector3 targetpos;
     private GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
+    private SpriteRenderer BackgroundSprite;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
@@ -32,6 +33,7 @@ public class Player : Person {
         DownCollider = transform.FindChild("DownCollider").gameObject;
         LeftCollider = transform.FindChild("LeftCollider").gameObject;
         RightCollider = transform.FindChild("RightCollider").gameObject; //colliders
+        BackgroundSprite = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>();
         pos = transform.position; //use for enemy detection
         targetpos = transform.position; //use form movement
         /*UpCollider.SetActive(false);
@@ -42,15 +44,16 @@ public class Player : Person {
 	
 	// Update is called once per frame
 	void Update () {
-        pos = new Vector3(transform.position.x, transform.position.y); //get current position
-        /*if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
-        {
-            SetTargetPosition();
-        }
-        MovePlayer();
-        */
-        
-        if(health <= 0) //if no health return to menu scene
+        pos = new Vector3(transform.position.x, transform.position.y); 
+        //get current position
+         /*if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
+                {
+                SetTargetPosition();
+               }
+             MovePlayer();
+          */
+
+        if (health <= 0) //if no health return to menu scene
         {
             menu.SendMessage("ReturnToMenu");   
             
@@ -58,7 +61,11 @@ public class Player : Person {
 
         if (Input.GetKey(KeyCode.W) == true) //WASD if needed
         {
-            targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed); 
+            targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
+            /*if (targetpos.y > -BackgroundSprite.bounds.extents.y && targetpos.y < BackgroundSprite.bounds.extents.y) //if within the border of the background change y
+            {
+                targetpos = new Vector3(transform.position.x, transform.position.y);
+            }       */
             agent.SetDestination(targetpos);
             UpCollider.SetActive(true); //change collider
             DownCollider.SetActive(false);
@@ -131,7 +138,7 @@ public class Player : Person {
     {
         agent.SetDestination(targetpos);
 
-        Debug.DrawLine(transform.position, targetpos, Color.red); //see if it works
+        //Debug.DrawLine(transform.position, targetpos, Color.red); //see if it works
     }
 
     public float getvelocity()
