@@ -4,14 +4,14 @@ using System.Collections;
 public class Player : Person {
     //isKinematic so need tranform.Position to move
     //float health
-    //Position position
+    //Vector3 targetposition
     //navagent2d agent
     //rigidbody2d rb
     //audioclip audio1
 
     private Menu menu;
-    private Vector3 targetpos;
     private GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
+    private Sprite BackgroundSprite;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
@@ -32,17 +32,18 @@ public class Player : Person {
         DownCollider = transform.FindChild("DownCollider").gameObject;
         LeftCollider = transform.FindChild("LeftCollider").gameObject;
         RightCollider = transform.FindChild("RightCollider").gameObject; //colliders
-        pos = transform.position; //use for enemy detection
+        BackgroundSprite = GameObject.FindGameObjectWithTag("BackgroundTag").GetComponent<SpriteRenderer>().sprite;
         targetpos = transform.position; //use form movement
         /*UpCollider.SetActive(false);
         LeftCollider.SetActive(false);
         RightCollider.SetActive(false); */ //colliders
         //DownCollider is active first as we start with down sprite
+        Debug.Log(BackgroundSprite.bounds);
+        //Debug.Log(BackgroundSprite.bounds.extents.x * 20);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        pos = new Vector3(transform.position.x, transform.position.y); 
         //get current position
          /*if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
                 {
@@ -60,6 +61,7 @@ public class Player : Person {
         if (Input.GetKey(KeyCode.W) == true) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
+            //targetpos.y = Mathf.Clamp(targetpos.y, )
             agent.SetDestination(targetpos);
             UpCollider.SetActive(true); //change collider
             DownCollider.SetActive(false);

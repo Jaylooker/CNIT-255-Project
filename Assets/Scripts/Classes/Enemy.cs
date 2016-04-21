@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Enemy : Person, IEnemyState {
     //isKinematic so need tranform.Position to move
     //float health 
-    //Position position
+    //Vector3 targetpos
     //navagent2d agent
     //rigidbody2d rb
     //audioclip audio1
@@ -13,7 +13,6 @@ public class Enemy : Person, IEnemyState {
     private List<GameObject> pathways = new List<GameObject>();
     private /*List<GameObject>*/ GameObject[] path; 
     private GameObject player;
-    private Vector3 targetpos;
     private SpriteRenderer displaysprite;
     private Sprite deadsprite;
     private float velocity;
@@ -29,7 +28,7 @@ public class Enemy : Person, IEnemyState {
         rb = gameObject.GetComponent<Rigidbody2D>();
         displaysprite = gameObject.GetComponent<SpriteRenderer>();
         isDead = false;
-        velocity = 3f;
+        velocity = 1f;
         sightdistance = 4f;
         targetpos = new Vector3();
         i = 0;
@@ -64,10 +63,10 @@ public class Enemy : Person, IEnemyState {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        pos = new Vector3(transform.position.x, transform.position.y); //get current position
+	void LateUpdate ()
+    {
         UpdateState();
-      }
+    }
 
     public bool getisDead()
     {
