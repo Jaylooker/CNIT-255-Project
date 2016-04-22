@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Enemy : Person, IEnemyState {
     //isKinematic so need tranform.Position to move
     //float health 
-    //bool atTopBoundary, atBottomBoundary, atLeftBoundary, atRightBoundary
     //Vector3 targetpos
     //navagent2d agent
     //boundaryscript boundary
@@ -63,6 +62,10 @@ public class Enemy : Person, IEnemyState {
         path = GameObject.FindGameObjectsWithTag("Waypoint");
     }
 	
+    void FixedUpdate()
+    {
+        boundary.CheckBoundaryFor("Enemy");
+    }
 	// Update is called once per frame
 	void LateUpdate ()
     {
@@ -82,18 +85,20 @@ public class Enemy : Person, IEnemyState {
     //functions from IEnemyState interface 
     public void Patrol() 
     {
-            targetpos = path[i].transform.position; //set patrol 
-            if (transform.TransformPoint(transform.position).Equals(transform.TransformPoint(targetpos))) //if enemy has reached the targetpos, then move to next one in array
+            targetpos = path[i].transform.position; //set patrol
+            if (transform.position == targetpos) //if enemy has reached the targetpos, then move to next one in array
             {
                 i++;
                 i = i % path.Length; //loop back 
             }
-          
+        StayInBounds();
         transform.position = Vector3.MoveTowards(transform.position, targetpos, Time.deltaTime * velocity); //move to targetpos 
     }
     public void Attack()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * velocity);
+        targetpos = player.transform.position;
+        StayInBounds();
+        transform.position = Vector3.MoveTowards(transform.position, targetpos, Time.deltaTime * velocity);
         //agent.SetDestination(player.transform.position); //follow player
         //Debug.Log("Attack!");
     }
@@ -118,5 +123,25 @@ public class Enemy : Person, IEnemyState {
             StartCoroutine(Dead());
         }
         
+    }
+
+    public void StayInBounds()
+    {
+        if (boundary.getTopBoundary() == true)
+        {
+            targetpos.y = boundary.getTopBoundary().point.y;
+        }
+        if (boundary.getBottomBoundary() == true)
+        {
+            targetpos.y = boundary.getTopBoundary().point.y;
+        }
+        if (boundary.getLeftBoundary() == true)
+        {
+            targetpos.x = boundary.getTopBoundary().point.x;
+        }
+        if (boundary.getRightBoundary() == true)
+        {
+            targetpos.x = boundary.getTopBoundary().point.x;
+        }
     }
 }

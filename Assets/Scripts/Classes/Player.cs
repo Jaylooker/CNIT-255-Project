@@ -4,7 +4,6 @@ using System.Collections;
 public class Player : Person {
     //isKinematic so need tranform.Position to move
     //float health
-    //bool atTopBoundary, atBottomBoundary, atLeftBoundary, atRightBoundary
     //Vector3 targetposition
     //navagent2d agent
     //boundaryscript boundary
@@ -96,40 +95,11 @@ public class Player : Person {
             RightCollider.SetActive(true);
           }
 
-
     }
 
     void FixedUpdate() //for physics (i.e. colliders)
     {
-        boundary.setatTopBoundary(false);
-        boundary.setatBottomBoundary(false);
-        boundary.setatLeftBoundary(false);
-        boundary.setatRightBoundary(false);
-
-        if (boundary.getTopBoundary() != false && boundary.getTopBoundary().transform.tag == "Player") //if collider is not null and tag is player
-        {
-            boundary.setatTopBoundary(true);
-            //Debug.Log("Hit top");
-        }
-        
-        if (boundary.getBottomBoundary() != false && boundary.getBottomBoundary().transform.tag == "Player")
-        {
-            boundary.setatBottomBoundary(true);
-            //Debug.Log("Hit bottom");
-        }
-        
-        if(boundary.getLeftBoundary() != false && boundary.getLeftBoundary().transform.tag == "Player")
-        {
-            boundary.setatLeftBoundary(true);
-            //Debug.Log("Hit left");
-        }
-
-        if (boundary.getRightBoundary() != false && boundary.getRightBoundary().transform.tag == "Player")
-        {
-            boundary.setatRightBoundary(true);
-            //Debug.Log("Hit right");
-        }
-
+        boundary.CheckBoundaryFor("Player");
     }
 
     void OnTriggerEnter2D(Collider2D col)
