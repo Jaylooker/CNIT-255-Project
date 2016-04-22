@@ -6,7 +6,7 @@ public class Player : Person {
     //float health
     //Vector3 targetposition
     //navagent2d agent
-    //rigidbody2d rb
+    //boundaryscript boundary
     //audioclip audio1
 
     private Menu menu;
@@ -21,7 +21,7 @@ public class Player : Person {
     {
         agent = gameObject.AddComponent<NavAgent2D>();  //creates accessor to NavAgent2D script
         menu = gameObject.AddComponent<Menu>();
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        boundary = gameObject.AddComponent<BoundaryScript>();
         agent.setvelocity(velocity); //set speed
     }
     
@@ -61,6 +61,13 @@ public class Player : Person {
         if (Input.GetKey(KeyCode.W) == true) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
+           /*if (Physics2D.Linecast(boundary.getTLCorner(), boundary.getTRCorner()) == false) 
+            {
+                if (boundary.transform.tag == "Player")
+                {
+                    targetpos = new Vector3(transform.position.x, transform.position.y);
+                } 
+            } */
             //targetpos.y = Mathf.Clamp(targetpos.y, )
             agent.SetDestination(targetpos);
             UpCollider.SetActive(true); //change collider

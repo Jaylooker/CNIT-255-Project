@@ -7,7 +7,7 @@ public class Enemy : Person, IEnemyState {
     //float health 
     //Vector3 targetpos
     //navagent2d agent
-    //rigidbody2d rb
+    //boundaryscript boundary
     //audioclip audio1
 
     private List<GameObject> pathways = new List<GameObject>();
@@ -25,7 +25,7 @@ public class Enemy : Person, IEnemyState {
     void Awake()
     {
         agent = gameObject.AddComponent<NavAgent2D>(); //creates accessor to NavAgent2D script
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        boundary = gameObject.AddComponent<BoundaryScript>();
         displaysprite = gameObject.GetComponent<SpriteRenderer>();
         isDead = false;
         velocity = 1f;
