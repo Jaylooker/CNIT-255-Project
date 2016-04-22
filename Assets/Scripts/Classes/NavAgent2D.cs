@@ -27,8 +27,8 @@ public class NavAgent2D : MonoBehaviour
             //transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * velocity);
             transform.LookAt(transform.position); // rotate towards direction of movement
             //Debug.Log(destination);
-        //Debug.Log(path.origin);
-        //Debug.Log(path.direction);
+            //Debug.Log(path.origin);
+            //Debug.Log(path.direction);
 
         //can add avoidance if needed
     }

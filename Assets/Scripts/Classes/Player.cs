@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : Person {
     //isKinematic so need tranform.Position to move
     //float health
+    //bool atTopBoundary, atBottomBoundary, atLeftBoundary, atRightBoundary
     //Vector3 targetposition
     //navagent2d agent
     //boundaryscript boundary
@@ -34,11 +35,11 @@ public class Player : Person {
         RightCollider = transform.FindChild("RightCollider").gameObject; //colliders
         BackgroundSprite = GameObject.FindGameObjectWithTag("BackgroundTag").GetComponent<SpriteRenderer>().sprite;
         targetpos = transform.position; //use form movement
-        /*UpCollider.SetActive(false);
+        UpCollider.SetActive(false);
         LeftCollider.SetActive(false);
-        RightCollider.SetActive(false); */ //colliders
+        RightCollider.SetActive(false);  //colliders
         //DownCollider is active first as we start with down sprite
-        Debug.Log(BackgroundSprite.bounds);
+        //Debug.Log(BackgroundSprite.bounds);
         //Debug.Log(BackgroundSprite.bounds.extents.x * 20);
 	}
 	
@@ -58,49 +59,75 @@ public class Player : Person {
             
         }
 
-        if (Input.GetKey(KeyCode.W) == true) //WASD if needed
+        if (Input.GetKey(KeyCode.W) == true && boundary.getatTopBoundary() == false) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
-           /*if (Physics2D.Linecast(boundary.getTLCorner(), boundary.getTRCorner()) == false) 
-            {
-                if (boundary.transform.tag == "Player")
-                {
-                    targetpos = new Vector3(transform.position.x, transform.position.y);
-                } 
-            } */
-            //targetpos.y = Mathf.Clamp(targetpos.y, )
             agent.SetDestination(targetpos);
             UpCollider.SetActive(true); //change collider
             DownCollider.SetActive(false);
             LeftCollider.SetActive(false);
             RightCollider.SetActive(false);
         }
-        if (Input.GetKey(KeyCode.S) == true)
+        if (Input.GetKey(KeyCode.S) == true && boundary.getatBottomBoundary() == false)
         {
             targetpos = new Vector3(transform.position.x, transform.position.y - WASDspeed);
             agent.SetDestination(targetpos);
             UpCollider.SetActive(false); //change collider
             DownCollider.SetActive(true);
             LeftCollider.SetActive(false);
-            RightCollider.SetActive(false); 
+            RightCollider.SetActive(false);
         }
-        if (Input.GetKey(KeyCode.A) == true)
+        if (Input.GetKey(KeyCode.A) == true && boundary.getLeftBoundary() == false)
         {
             targetpos = new Vector3(transform.position.x - WASDspeed, transform.position.y);
             agent.SetDestination(targetpos);
             UpCollider.SetActive(false); //change collider
             DownCollider.SetActive(false);
             LeftCollider.SetActive(true);
-            RightCollider.SetActive(false); 
-        }
-        if (Input.GetKey(KeyCode.D) == true)
-        {
+            RightCollider.SetActive(false);
+         }
+         if (Input.GetKey(KeyCode.D) == true && boundary.getRightBoundary() == false)
+         {
             targetpos = new Vector3(transform.position.x + WASDspeed, transform.position.y);
             agent.SetDestination(targetpos);
             UpCollider.SetActive(false); //change collider
             DownCollider.SetActive(false);
             LeftCollider.SetActive(false);
-            RightCollider.SetActive(true); 
+            RightCollider.SetActive(true);
+          }
+
+
+    }
+
+    void FixedUpdate() //for physics (i.e. colliders)
+    {
+        boundary.setatTopBoundary(false);
+        boundary.setatBottomBoundary(false);
+        boundary.setatLeftBoundary(false);
+        boundary.setatRightBoundary(false);
+
+        if (boundary.getTopBoundary() != false && boundary.getTopBoundary().transform.tag == "Player") //if collider is not null and tag is player
+        {
+            boundary.setatTopBoundary(true);
+            //Debug.Log("Hit top");
+        }
+        
+        if (boundary.getBottomBoundary() != false && boundary.getBottomBoundary().transform.tag == "Player")
+        {
+            boundary.setatBottomBoundary(true);
+            //Debug.Log("Hit bottom");
+        }
+        
+        if(boundary.getLeftBoundary() != false && boundary.getLeftBoundary().transform.tag == "Player")
+        {
+            boundary.setatLeftBoundary(true);
+            //Debug.Log("Hit left");
+        }
+
+        if (boundary.getRightBoundary() != false && boundary.getRightBoundary().transform.tag == "Player")
+        {
+            boundary.setatRightBoundary(true);
+            //Debug.Log("Hit right");
         }
 
     }

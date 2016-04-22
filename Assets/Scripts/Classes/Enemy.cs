@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Enemy : Person, IEnemyState {
     //isKinematic so need tranform.Position to move
     //float health 
+    //bool atTopBoundary, atBottomBoundary, atLeftBoundary, atRightBoundary
     //Vector3 targetpos
     //navagent2d agent
     //boundaryscript boundary

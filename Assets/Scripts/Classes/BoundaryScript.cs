@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BoundaryScript : MonoBehaviour {
 
+    //made to work like a square or rectangle
+    protected bool atTopBoundary, atBottomBoundary, atLeftBoundary, atRightBoundary;
     private Vector2 TLCorner, TRCorner, BLCorner, BRCorner; //TL (Top Left) BR (Bottom Right)
     private RaycastHit2D TopBoundary, BottomBoundary, LeftBoundary, RightBoundary;
     // Use this for initialization
@@ -11,17 +13,20 @@ public class BoundaryScript : MonoBehaviour {
         TRCorner = new Vector2(GameObject.Find("TRCorner").transform.position.x, GameObject.Find("TRCorner").transform.position.y);
         BLCorner = new Vector2 (GameObject.Find("BLCorner").transform.position.x, GameObject.Find("BLCorner").transform.position.y);
         BRCorner = new Vector2(GameObject.Find("BRCorner").transform.position.x, GameObject.Find("BRCorner").transform.position.y);
+        atTopBoundary = false;
+        atBottomBoundary = false;
+        atLeftBoundary = false;
+        atRightBoundary = false;
 
-        TopBoundary = Physics2D.Linecast(TLCorner, TRCorner);
+	}
+	
+	void FixedUpdate ()
+    {
+        TopBoundary = Physics2D.Linecast(TLCorner, TRCorner); //creates a line in between 2 points and finds any colliders that cross the line
         BottomBoundary = Physics2D.Linecast(BLCorner, BRCorner);
         LeftBoundary = Physics2D.Linecast(TLCorner, BLCorner);
         RightBoundary = Physics2D.Linecast(TRCorner, BRCorner);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    }
 
     public RaycastHit2D getTopBoundary()
     {
@@ -61,5 +66,45 @@ public class BoundaryScript : MonoBehaviour {
     public Vector2 getBLCorner()
     {
         return BLCorner;
+    }
+
+    public bool getatTopBoundary()
+    {
+        return atTopBoundary;
+    }
+
+    public bool getatBottomBoundary()
+    {
+        return atBottomBoundary;
+    }
+
+    public bool getatLeftBoundary()
+    {
+        return atLeftBoundary;
+    }
+
+    public bool getatRightBoundary()
+    {
+        return atRightBoundary;
+    }
+
+    public void setatTopBoundary(bool b)
+    {
+        atTopBoundary = b;
+    }
+
+    public void setatBottomBoundary(bool b)
+    {
+        atBottomBoundary = b;
+    }
+
+    public void setatLeftBoundary(bool b)
+    {
+        atLeftBoundary = b;
+    }
+
+    public void setatRightBoundary(bool b)
+    {
+        atRightBoundary = b;
     }
 }
