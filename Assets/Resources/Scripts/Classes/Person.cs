@@ -8,5 +8,6 @@ public class Person : MonoBehaviour {
     protected NavAgent2D agent;
     protected BoundaryScript boundary;
     protected AudioClip audio1;
+    protected Animation animup, animdown, animleft, animright;
 
 }
