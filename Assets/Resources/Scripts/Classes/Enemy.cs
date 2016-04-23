@@ -129,19 +129,23 @@ public class Enemy : Person, IEnemyState {
     {
         if (boundary.getTopBoundary() == true)
         {
-            targetpos.y = boundary.getTopBoundary().point.y;
+            //targetpos.y = boundary.getTopBoundary().point.y;
+            targetpos.y = Mathf.Clamp(targetpos.y, 0, boundary.getTopBoundary().point.y);
         }
         if (boundary.getBottomBoundary() == true)
         {
-            targetpos.y = boundary.getTopBoundary().point.y;
+           // targetpos.y = boundary.getTopBoundary().point.y;
+            targetpos.y = Mathf.Clamp(targetpos.y, 0, boundary.getTopBoundary().point.y);
         }
         if (boundary.getLeftBoundary() == true)
         {
-            targetpos.x = boundary.getTopBoundary().point.x;
+            //targetpos.x = boundary.getTopBoundary().point.x;
+            targetpos.x = Mathf.Clamp(targetpos.x, 0, boundary.getTopBoundary().point.x);
         }
         if (boundary.getRightBoundary() == true)
         {
-            targetpos.x = boundary.getTopBoundary().point.x;
+            //targetpos.x = boundary.getTopBoundary().point.x;
+            targetpos.x = Mathf.Clamp(targetpos.x, 0, boundary.getTopBoundary().point.x);
         }
     }
 }
