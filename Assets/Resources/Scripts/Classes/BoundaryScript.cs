@@ -38,7 +38,7 @@ public class BoundaryScript : MonoBehaviour {
         if (TopBoundary != false && TopBoundary.collider.name == typeof(BoxCollider2D).Name && TopBoundary.transform.tag == tag) //if collider is not null, is box collider, and tag is parameter
         {
             atTopBoundary = true;
-            //Debug.Log("Hit top");
+            Debug.Log("Hit top");
         }
 
         if (BottomBoundary!= false && BottomBoundary.collider.name == typeof(BoxCollider2D).Name && BottomBoundary.transform.tag == tag)
@@ -56,7 +56,7 @@ public class BoundaryScript : MonoBehaviour {
         if (RightBoundary != false && RightBoundary.collider.name == typeof(BoxCollider2D).Name && RightBoundary.transform.tag == tag)
         {
             atRightBoundary = true;
-            //Debug.Log("Hit right");
+            Debug.Log("Hit right");
         }
     }
 

@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour {
         waves = 3;
         enemysalldead = false;
         defaultrotation = Quaternion.Euler(0f, 0f, 0f);
-        //Destroy(GameObject.FindGameObjectWithTag("Enemy"), 2f); //Uncomment to debug: Destroys enemy is scene to start waves 
+        //Destroy(GameObject.FindGameObjectWithTag("Enemy"), 3f); //Uncomment to debug: Destroys enemy is scene to start waves 
         enemy.transform.localScale = new Vector3(4, 4, 0); //scale to what we have in scene 
 	}
 	

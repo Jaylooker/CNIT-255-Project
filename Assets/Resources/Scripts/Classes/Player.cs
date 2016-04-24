@@ -58,7 +58,7 @@ public class Player : Person {
             
         }
 
-        if (Input.GetKey(KeyCode.W) == true && boundary.getatTopBoundary() == false) //WASD if needed
+        if (Input.GetKey(KeyCode.W) == true && boundary.getTopBoundary() == false) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
             agent.SetDestination(targetpos);
@@ -67,7 +67,7 @@ public class Player : Person {
             LeftCollider.SetActive(false);
             RightCollider.SetActive(false);
         }
-        if (Input.GetKey(KeyCode.S) == true && boundary.getatBottomBoundary() == false)
+        if (Input.GetKey(KeyCode.S) == true && boundary.getBottomBoundary() == false)
         {
             targetpos = new Vector3(transform.position.x, transform.position.y - WASDspeed);
             agent.SetDestination(targetpos);

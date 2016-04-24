@@ -102,7 +102,7 @@ public class Enemy : Person, IEnemyState {
         //agent.SetDestination(player.transform.position); //follow player
         //Debug.Log("Attack!");
     }
-    public IEnumerator Dead()
+    public IEnumerator Dead() 
     {
         displaysprite.sprite = deadsprite; //display dead sprite
         yield return new WaitForSeconds(5);
