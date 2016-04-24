@@ -18,7 +18,6 @@ public class Enemy : Person, IEnemyState {
     private float velocity;
     private float sightdistance;
     private int i;
-    private float damage;
     private bool isDead;
     private double randomvar;
 
@@ -33,6 +32,7 @@ public class Enemy : Person, IEnemyState {
         targetpos = new Vector3();
         i = 0;
         damage = 10;
+        health = 50f;
     }
     // Use this for initialization
 	void Start () {
@@ -70,6 +70,14 @@ public class Enemy : Person, IEnemyState {
 	void LateUpdate ()
     {
         UpdateState();
+    }
+
+    void Update()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public bool getisDead()

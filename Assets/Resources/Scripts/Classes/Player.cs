@@ -10,12 +10,14 @@ public class Player : Person {
     //audioclip audio1
 
     private Menu menu;
+    private GameObject[] enemies;
     private GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
     private Sprite BackgroundSprite;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
     private float WASDspeed = 5f;
+    private float attackdistance = .5f;
 
     void Awake()
     {
@@ -23,6 +25,8 @@ public class Player : Person {
         menu = gameObject.AddComponent<Menu>();
         boundary = gameObject.AddComponent<BoundaryScript>();
         agent.setvelocity(velocity); //set speed
+        damage = 10f;
+
     }
     
 	// Use this for initialization
@@ -44,20 +48,32 @@ public class Player : Person {
 	
 	// Update is called once per frame
 	void Update () {
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         //get current position
-         /*if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
-                {
-                SetTargetPosition();
-               }
-             MovePlayer();
-          */
+        /*if (Input.GetMouseButton(LeftMouseButton) == true) //if left mouse on screen
+               {
+               SetTargetPosition();
+              }
+            MovePlayer();
+         */
 
         if (health <= 0) //if no health return to menu scene
         {
-            menu.SendMessage("ReturnToMenu");   
-            
+            menu.SendMessage("ReturnToMenu");
         }
 
+        if (Input.GetMouseButton(LeftMouseButton) == true) //if left click
+        {
+            foreach (GameObject enemy in enemies) //find each enemy
+            {
+                if (Vector3.Distance(transform.position, enemy.transform.position) <= attackdistance) //if enemy is within attack range
+                {
+                    enemy.GetComponent<Enemy>().sethealth(enemy.GetComponent<Enemy>().gethealth() - damage); //enemy take damage
+                    enemy.GetComponent<SpriteRenderer>().color = Color.cyan;
+                    Debug.Log(enemy.GetComponent<Enemy>().gethealth());
+                }
+            }
+        } 
         if (Input.GetKey(KeyCode.W) == true && boundary.getTopBoundary() == false) //WASD if needed
         {
             targetpos = new Vector3(transform.position.x, transform.position.y + WASDspeed);
