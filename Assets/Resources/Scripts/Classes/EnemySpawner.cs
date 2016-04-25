@@ -12,11 +12,12 @@ public class EnemySpawner : MonoBehaviour {
     private int wave1;
     private int waves;
     private bool enemysalldead;
+    private int counter;
 
 	// Use this for initialization
 	void Start () {
         enemy = (GameObject)Resources.Load("Prefabs/Enemies/Enemy1", typeof(GameObject)); //locate object in prefabs
-  
+        counter = 0;
         spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         wave1 = 5; //use level index for later levels
         waves = 3;
@@ -43,16 +44,18 @@ public class EnemySpawner : MonoBehaviour {
             {
                 Wave(wave1); //spawn another wave
                 enemysalldead = false; //enemies are alive
+                counter++;
+
+                if (counter == 2)
+                {
+                    menu.SendMessage("ReturnToMenu");
+                }
             }
             else
             {
                 break;
             }
-            if (waves - 1 == k)
-            {
-                menu.SendMessage("ReturnToMenu");
-            }
-
+        
            
         }
         
