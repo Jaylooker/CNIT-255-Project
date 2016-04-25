@@ -164,7 +164,7 @@ public class Player : Person {
 
     public void ChangeColor(GameObject gm)
     {
-        gm.GetComponent<SpriteRenderer>().color = Color.blue;
+        gm.GetComponentInChildren<SpriteRenderer>().color = Color.blue;
 
     }
 
