@@ -12,7 +12,6 @@ public class Player : Person {
 
     private Menu menu;
     private GameObject[] enemies;
-    private GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
     private Sprite BackgroundSprite;
     private const int LeftMouseButton = 0;
     private const int MiddleMouseButton = 2;
@@ -35,10 +34,10 @@ public class Player : Person {
 	void Start () {
         health = 100f;
         healthText.text = "Health: " + health;
-        UpCollider = transform.FindChild("UpCollider").gameObject;
-        DownCollider = transform.FindChild("DownCollider").gameObject;
-        LeftCollider = transform.FindChild("LeftCollider").gameObject;
-        RightCollider = transform.FindChild("RightCollider").gameObject; //colliders
+        UpCollider = transform.FindChild("PlayerUpCollider").gameObject;
+        DownCollider = transform.FindChild("PlayerDownCollider").gameObject;
+        LeftCollider = transform.FindChild("PlayerLeftCollider").gameObject;
+        RightCollider = transform.FindChild("PlayerRightCollider").gameObject; //colliders
         BackgroundSprite = GameObject.FindGameObjectWithTag("BackgroundTag").GetComponent<SpriteRenderer>().sprite;
         targetpos = transform.position; //use form movement
         UpCollider.SetActive(false);
@@ -127,15 +126,10 @@ public class Player : Person {
         
         if (col.GetType() == typeof(BoxCollider2D)) //if box collider 
         {
-            switch (col.tag)
+            while (col.tag == "Enemy") //while enemy has collided with player
             {
-                case "Enemy": health -= col.GetComponent<Enemy>().getDamage(); //subract enemy damage 
-                    break;
-                case "Wall":
-                    transform.position = transform.position; //stop player from moving
-                    break;
-                default: //do nothing 
-                    break;
+                health -= col.GetComponent<Enemy>().getDamage(); //subract enemy damage
+                Timer(2f);
             }
         }
     }
@@ -175,6 +169,11 @@ public class Player : Person {
     {
         gm.GetComponent<SpriteRenderer>().color = Color.blue;
 
+    }
+
+    public IEnumerator Timer(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 
 

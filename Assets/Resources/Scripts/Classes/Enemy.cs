@@ -26,6 +26,10 @@ public class Enemy : Person, IEnemyState {
         agent = gameObject.AddComponent<NavAgent2D>(); //creates accessor to NavAgent2D script
         boundary = gameObject.AddComponent<BoundaryScript>();
         displaysprite = gameObject.GetComponent<SpriteRenderer>();
+        UpCollider = transform.FindChild("EnemyUpCollider").gameObject;
+        DownCollider = transform.FindChild("EnemyDownCollider").gameObject;
+        LeftCollider = transform.FindChild("EnemyLeftCollider").gameObject;
+        RightCollider = transform.FindChild("EnemyRightCollider").gameObject; //colliders
         isDead = false;
         velocity = 1f;
         sightdistance = 4f;
@@ -72,14 +76,6 @@ public class Enemy : Person, IEnemyState {
         UpdateState();
     }
 
-    void Update()
-    {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public bool getisDead()
     {
         return isDead;
@@ -100,7 +96,7 @@ public class Enemy : Person, IEnemyState {
                 i = i % path.Length; //loop back 
             }
         StayInBounds();
-        transform.position = Vector3.MoveTowards(transform.position, targetpos, Time.deltaTime * velocity); //move to targetpos 
+        transform.position = Vector3.MoveTowards(transform.position, targetpos, Time.deltaTime * velocity); //move to targetpos
     }
     public void Attack()
     {
@@ -118,13 +114,19 @@ public class Enemy : Person, IEnemyState {
     }
     public void UpdateState()
     {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
         if (Vector3.Distance(transform.position, player.transform.position) >= sightdistance && isDead == false)
         {
             Patrol();
+            UpdateSprite();
         }
         else if (isDead == false)
         {
             Attack();
+            UpdateSprite();
         }
         else
         {
@@ -154,6 +156,38 @@ public class Enemy : Person, IEnemyState {
         {
             //targetpos.x = boundary.getTopBoundary().point.x;
             targetpos.x = Mathf.Clamp(targetpos.x, 0, boundary.getTopBoundary().point.x);
+        }
+    }
+
+    public void UpdateSprite()
+    {
+        if (Vector3.Angle(transform.position, targetpos) >= 315f && Vector3.Angle(transform.position, targetpos) < 45f) // (x) divided sprite rendering
+        {
+            RightCollider.SetActive(true);
+            UpCollider.SetActive(false);
+            LeftCollider.SetActive(false);
+            DownCollider.SetActive(false);
+        }
+        else if (Vector3.Angle(transform.position, targetpos) >= 45f && Vector3.Angle(transform.position, targetpos) < 135f)
+        {
+            RightCollider.SetActive(false);
+            UpCollider.SetActive(true);
+            LeftCollider.SetActive(false);
+            DownCollider.SetActive(false);
+        }
+        else if (Vector3.Angle(transform.position, targetpos) >= 135f && Vector3.Angle(transform.position, targetpos) < 225f)
+        {
+            RightCollider.SetActive(false);
+            UpCollider.SetActive(false);
+            LeftCollider.SetActive(true);
+            DownCollider.SetActive(false);
+        }
+        else if (Vector3.Angle(transform.position, targetpos) >= 225f && Vector3.Angle(transform.position, targetpos) < 315f)
+        {
+            RightCollider.SetActive(true);
+            UpCollider.SetActive(false);
+            LeftCollider.SetActive(false);
+            DownCollider.SetActive(false);
         }
     }
 }

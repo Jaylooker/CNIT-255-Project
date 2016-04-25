@@ -9,6 +9,7 @@ public class Person : MonoBehaviour {
     protected BoundaryScript boundary;
     protected AudioClip audio1;
     protected Animation animup, animdown, animleft, animright;
+    protected GameObject UpCollider, DownCollider, LeftCollider, RightCollider;
 
     public float gethealth()
     {
