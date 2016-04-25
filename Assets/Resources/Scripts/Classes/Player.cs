@@ -121,14 +121,19 @@ public class Player : Person {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        switch (col.tag) 
+        
+        if (col.GetType() == typeof(BoxCollider2D)) //if box collider 
         {
-            /*case "Enemy": health -= col.GetComponent<Enemy>().getDamage(); //subract enemy damage 
-                break;*/
-            case "Wall": transform.position = transform.position; //stop player from moving
-                break;
-            default: //do nothing 
-                break;
+            switch (col.tag)
+            {
+                case "Enemy": health -= col.GetComponent<Enemy>().getDamage(); //subract enemy damage 
+                    break;
+                case "Wall":
+                    transform.position = transform.position; //stop player from moving
+                    break;
+                default: //do nothing 
+                    break;
+            }
         }
     }
 
