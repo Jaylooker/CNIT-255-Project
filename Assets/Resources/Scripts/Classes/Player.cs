@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : Person {
     //isKinematic so need tranform.Position to move
@@ -18,6 +19,7 @@ public class Player : Person {
     private float velocity = 2f; //units per frame
     private float WASDspeed = 5f;
     private float attackdistance = .75f;
+    public Text healthText;
 
     void Awake()
     {
@@ -32,6 +34,7 @@ public class Player : Person {
 	// Use this for initialization
 	void Start () {
         health = 100f;
+        healthText.text = "Health: " + health;
         UpCollider = transform.FindChild("UpCollider").gameObject;
         DownCollider = transform.FindChild("DownCollider").gameObject;
         LeftCollider = transform.FindChild("LeftCollider").gameObject;
@@ -111,7 +114,7 @@ public class Player : Person {
             LeftCollider.SetActive(false);
             RightCollider.SetActive(true);
           }
-
+        healthText.text = "Health: " + health;
     }
 
     void FixedUpdate() //for physics (i.e. colliders)
