@@ -17,7 +17,7 @@ public class Player : Person {
     private const int MiddleMouseButton = 2;
     private float velocity = 2f; //units per frame
     private float WASDspeed = 5f;
-    private float attackdistance = .5f;
+    private float attackdistance = .75f;
 
     void Awake()
     {
@@ -69,8 +69,9 @@ public class Player : Person {
                 if (Vector3.Distance(transform.position, enemy.transform.position) <= attackdistance) //if enemy is within attack range
                 {
                     enemy.GetComponent<Enemy>().sethealth(enemy.GetComponent<Enemy>().gethealth() - damage); //enemy take damage
-                    enemy.GetComponent<SpriteRenderer>().color = Color.cyan;
-                    Debug.Log(enemy.GetComponent<Enemy>().gethealth());
+                    ChangeColor(enemy);
+
+                    //Debug.Log(enemy.GetComponent<Enemy>().gethealth());
                 }
             }
         } 
@@ -160,6 +161,12 @@ public class Player : Person {
     public float getvelocity()
     {
         return velocity;
+    }
+
+    public void ChangeColor(GameObject gm)
+    {
+        gm.GetComponent<SpriteRenderer>().color = Color.blue;
+
     }
 
 
