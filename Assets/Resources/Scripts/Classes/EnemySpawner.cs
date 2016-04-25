@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour {
     private GameObject[] spawnpoints;
     private Vector3 spawnplace;
     private Quaternion defaultrotation;
+    private Menu menu;
     private int wave1;
     private int waves;
     private bool enemysalldead;
@@ -23,6 +24,7 @@ public class EnemySpawner : MonoBehaviour {
         defaultrotation = Quaternion.Euler(0f, 0f, 0f);
         //Destroy(GameObject.FindGameObjectWithTag("Enemy"), 3f); //Uncomment to debug: Destroys enemy is scene to start waves 
         enemy.transform.localScale = new Vector3(4, 4, 0); //scale to what we have in scene 
+        menu = gameObject.AddComponent<Menu>();
 	}
 	
 	// Update is called once per frame
@@ -46,7 +48,10 @@ public class EnemySpawner : MonoBehaviour {
             {
                 break;
             }
-
+            if (waves - 1 == k)
+            {
+                menu.SendMessage("ReturnToMenu");
+            }
 
            
         }

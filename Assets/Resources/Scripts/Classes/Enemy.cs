@@ -44,6 +44,10 @@ public class Enemy : Person, IEnemyState {
         //deadsprite.name = "DeadSprite"; //get sprite named deadsprite
         randomvar = Random.value; //get random number
         player = GameObject.FindGameObjectWithTag("Player");
+        DownCollider.SetActive(true);
+        UpCollider.SetActive(false);
+        LeftCollider.SetActive(false);
+        RightCollider.SetActive(false);
         //Debug.Log(GameObject.FindGameObjectsWithTag("Path").ToString());
         /*pathways.AddRange(GameObject.FindGameObjectsWithTag("Path")); //collect paths
         Debug.Log(pathways); 

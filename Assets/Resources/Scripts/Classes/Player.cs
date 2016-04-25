@@ -18,7 +18,7 @@ public class Player : Person {
     private float velocity = 2f; //units per frame
     private float WASDspeed = 5f;
     private float attackdistance = .75f;
-    public Text healthText;
+    private Text healthText;
 
     void Awake()
     {
@@ -26,20 +26,21 @@ public class Player : Person {
         menu = gameObject.AddComponent<Menu>();
         boundary = gameObject.AddComponent<BoundaryScript>();
         agent.setvelocity(velocity); //set speed
-        damage = 10f;
+        damage = 1f;
 
     }
     
 	// Use this for initialization
 	void Start () {
         health = 100f;
-        healthText.text = "Health: " + health;
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
         UpCollider = transform.FindChild("PlayerUpCollider").gameObject;
         DownCollider = transform.FindChild("PlayerDownCollider").gameObject;
         LeftCollider = transform.FindChild("PlayerLeftCollider").gameObject;
         RightCollider = transform.FindChild("PlayerRightCollider").gameObject; //colliders
         BackgroundSprite = GameObject.FindGameObjectWithTag("BackgroundTag").GetComponent<SpriteRenderer>().sprite;
         targetpos = transform.position; //use form movement
+        DownCollider.SetActive(true);
         UpCollider.SetActive(false);
         LeftCollider.SetActive(false);
         RightCollider.SetActive(false);  //colliders
@@ -124,13 +125,9 @@ public class Player : Person {
     void OnTriggerEnter2D(Collider2D col)
     {
         
-        if (col.GetType() == typeof(BoxCollider2D)) //if box collider 
+        if (col.GetType() == typeof(BoxCollider2D) && col.tag == "Enemy") //if box collider 
         {
-            while (col.tag == "Enemy") //while enemy has collided with player
-            {
                 health -= col.GetComponent<Enemy>().getDamage(); //subract enemy damage
-                Timer(2f);
-            }
         }
     }
 
